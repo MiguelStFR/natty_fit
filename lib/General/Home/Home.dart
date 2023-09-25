@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:natty_fit/General/inicio/SigInScreen.dart';
-import 'package:natty_fit/General/inicio/SignUpPage.dart';
+import 'package:natty_fit/General/Home/SettingsPage.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
 
 class Home extends StatelessWidget {
@@ -30,33 +29,41 @@ class HomePageState extends State<HomePage> {
     final largura = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Stack(
-        children: [
+      body: SafeArea(
+        child: Stack(
+          children: [
           Container(
             decoration: BackgroundHomeStyle(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       'OLÁ, MIGUEL!',
                       style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.yellow,
+                        fontSize: 21,
+                        color: Colors.white54,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     RotatedBox(
-                      quarterTurns: 135,
-                      child: Icon(
-                        Icons.settings,
-                        color: Colors.white54,
-                        size: 40,
+                      quarterTurns: 0,
+                      child: IconButton(
+                        iconSize: 40,
+                        icon: const Icon(Icons.settings, color: Colors.white54),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SettingsPage(
+                                  ))
+                          );
+                        },
                       ),
-                    )
+                    ),
                   ],
                 ),
                 Expanded(
@@ -73,18 +80,18 @@ class HomePageState extends State<HomePage> {
                           alignment: Alignment.topRight,
                           ///CONTAINER COM NÚMERO CUJA UTILIDADE NÃO LEMBRO
                           child: Container(
-                            height: altura*0.15,
-                            width: altura*0.15,
+                            height: altura*0.13,
+                            width: altura*0.13,
                             alignment: Alignment.center,
                             margin: const EdgeInsets.only(top: 10, right: 10),
                             decoration: ContainerCaloriasPerdidas(),
                             child: const Text(
-                              '20',
-                              style: TextStyle(
-                                fontSize: 60,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              )
+                                '20',
+                                style: TextStyle(
+                                  fontSize: 60,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                )
                             ),
                           ),
                         ),
@@ -174,8 +181,8 @@ class HomePageState extends State<HomePage> {
                                   decoration: InformacoesCaloricasContainer(),
                                 ),
                               ],
-                              ),
                             ),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -218,6 +225,7 @@ class HomePageState extends State<HomePage> {
             ),
           )
         ],
+        ),
       ),
     );
   }

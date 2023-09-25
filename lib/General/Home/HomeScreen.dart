@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:natty_fit/General/Style/WidgetStyle.dart';
 import 'package:natty_fit/General/Home/Home.dart';
 import 'package:natty_fit/General/Home/ExercisesPage.dart';
 import 'package:natty_fit/General/Home/DietPage.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -49,7 +47,7 @@ class _HomeScreen extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.sports_martial_arts), label: 'Exercícios'),
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Dieta'),
@@ -57,7 +55,7 @@ class _HomeScreen extends State<HomeScreen> {
         onTap: (pagina) {
           pc.animateToPage(
             pagina,
-            duration: Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 400),
             curve: Curves.ease,
           );
         },

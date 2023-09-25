@@ -6,9 +6,9 @@ class ExercisesPage extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Página de exercícios"),
+          title: const Text("Exercícios"),
         ),
-        body: Center(
+        body: const Center(
           child: Text(
             "Aqui o monstro cresce",
             style: TextStyle(

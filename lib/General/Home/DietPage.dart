@@ -6,9 +6,9 @@ class DietPage extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Pagina de dietas"),
+          title: const Text("Pagina de dietas"),
         ),
-        body: Center(
+        body: const Center(
           child: Text(
             "Aqui o monstro nutre",
             style: TextStyle(
