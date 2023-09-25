@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget{
+  const SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromRGBO(255,250,200, 1.0),
         appBar: AppBar(
-          title: const Text("Configurações"),
+          backgroundColor: const Color(0xff3d4109),
+          leading: BackButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: const Text("Configurações", textAlign: TextAlign.right),
           actions: <Widget>[
             IconButton(
                 icon: const Icon(Icons.info),
@@ -18,13 +26,31 @@ class SettingsPage extends StatelessWidget{
                       builder: (BuildContext context) {
                         return Container(
                           height: 230,
-                          color: Colors.white,
+                          color: const Color.fromRGBO(255,250,200, 1.0),
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                const Text('Criado por:\n\n- Miguel dos Santos \n- Pablo Las-Cazas\n- Gabriel El-Dine\n- Fábio Wnuk', textAlign: TextAlign.left,),
+                                Container(
+                                  child: const Row(
+                                    children: <Widget>[
+                                      SizedBox(width: 20),
+                                      Text('Criado por:\n\n- Miguel dos Santos \n- Pablo Las-Cazas\n- Gabriel El-Dine\n- Fábio Wnuk', textAlign: TextAlign.left),
+                                      SizedBox(width: 60),
+                                      // Container(
+                                      //   height: 200,
+                                      //   width: 200,
+                                      //   decoration: const BoxDecoration(
+                                      //     image: DecorationImage(
+                                      //       image: AssetImage('assets/images/logo.jpg'),
+                                      //       fit: BoxFit.fill,
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                    ]
+                                  ),
+                                ),
                                 const SizedBox(height: 28),
                                 ElevatedButton(
                                   child: const Text("Fechar"),
@@ -54,7 +80,8 @@ class SettingsPage extends StatelessWidget{
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => Dialog(
-                            child: Column(
+                              backgroundColor: const Color.fromRGBO(255,250,200, 1.0),
+                              child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -78,6 +105,7 @@ class SettingsPage extends StatelessWidget{
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => Dialog(
+                            backgroundColor: const Color.fromRGBO(255,250,200, 1.0),
                             //insetPadding: const EdgeInsets.all(8),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -121,7 +149,7 @@ class SettingsPage extends StatelessWidget{
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: const Text("Salvar")
+                                    child: const Text("Salvar", selectionColor: Color.fromRGBO(255,250,200, 1.0))
                                 ),
                                 const SizedBox(height: 10,)
                               ],
@@ -137,6 +165,7 @@ class SettingsPage extends StatelessWidget{
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => Dialog(
+                            backgroundColor: const Color.fromRGBO(255,250,200, 1.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -144,25 +173,23 @@ class SettingsPage extends StatelessWidget{
                                 const SizedBox(height: 20), // Remover quando começar à adicionar as opções
                                 const Text("Você tem certeza que quer deletar a conta?"),
                                 const SizedBox(height: 10), // Remover quando começar à adicionar as opções
-                                Container(
-                                    child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          OutlinedButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text("Sim"),
-                                          ),
-                                          const SizedBox(width: 10), // Remover quando começar à adicionar as opções
-                                          OutlinedButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: const Text("Não")
-                                          )
-                                        ],
-                                    ),
+                                Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      OutlinedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text("Sim"),
+                                      ),
+                                      const SizedBox(width: 10), // Remover quando começar à adicionar as opções
+                                      OutlinedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("Não")
+                                      )
+                                    ],
                                 ),
                                 const SizedBox(height: 10), // Remover quando começar à adicionar as opções
                               ],

@@ -46,6 +46,7 @@ class _HomeScreen extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color.fromRGBO(255,250,200, 1.0),
         currentIndex: _selectedIndex,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.sports_martial_arts), label: 'Exercícios'),

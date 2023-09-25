@@ -33,38 +33,45 @@ class HomePageState extends State<HomePage> {
         child: Stack(
           children: [
           Container(
-            decoration: BackgroundHomeStyle(),
+            //decoration: BackgroundHomeStyle(),
+            color: const Color.fromRGBO(255,250,200, 1.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                ColoredBox(
+                  //color: const Color.fromRGBO(33, 150, 243, 1.0),
+                  color: const Color(0xff3d4109),
+                  child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'OLÁ, MIGUEL!',
-                      style: TextStyle(
-                        fontSize: 21,
-                        color: Colors.white54,
-                        fontWeight: FontWeight.bold,
+                    children: [
+                      const SizedBox(width: 35),
+                      const Text(
+                        'Olá, Usuário!',
+                      textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 21,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    RotatedBox(
-                      quarterTurns: 0,
-                      child: IconButton(
-                        iconSize: 40,
-                        icon: const Icon(Icons.settings, color: Colors.white54),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SettingsPage(
-                                  ))
-                          );
-                        },
+                      RotatedBox(
+                        quarterTurns: 0,
+                        child: IconButton(
+                          iconSize: 40,
+                          icon: const Icon(Icons.settings, color: Colors.white),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SettingsPage(
+                                    ))
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: ListView(
@@ -86,11 +93,11 @@ class HomePageState extends State<HomePage> {
                             margin: const EdgeInsets.only(top: 10, right: 10),
                             decoration: ContainerCaloriasPerdidas(),
                             child: const Text(
-                                '20',
+                                '2',
                                 style: TextStyle(
                                   fontSize: 60,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  color: Colors.blueGrey,
                                 )
                             ),
                           ),
@@ -200,7 +207,8 @@ class HomePageState extends State<HomePage> {
                                 "00:00:00",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xff909b18),
+                                  //color: Color(0xff909b18),
+                                  color: Color.fromRGBO(255,250,200, 1.0),
                                   fontSize: 50,
                                 ),
                               ),
@@ -209,7 +217,8 @@ class HomePageState extends State<HomePage> {
                                 quarterTurns: 0,
                                 child: Icon(
                                   Icons.play_circle_outline,
-                                  color: Color(0xff909b18),
+                                  //color: Color(0xff909b18),
+                                  color: Color.fromRGBO(255,250,200, 1.0),
                                   size: 55,
                                 ),
                               )

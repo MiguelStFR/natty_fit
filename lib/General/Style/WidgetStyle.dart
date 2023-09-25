@@ -20,8 +20,10 @@ BoxDecoration BackgroundHomeStyle() {
   return const BoxDecoration(
       gradient: LinearGradient(
         colors: [
-          Color(0xff272a06),
-          Color(0xFF000000),
+          // Color(0xff272a06),
+          // Color(0xFF000000),
+          Color.fromRGBO(33, 150, 243, 1.0),
+          Color.fromRGBO(64,224,208, 1.0),
         ],
         stops: [0.25, 0.7],
         begin: Alignment.topCenter,
@@ -88,7 +90,8 @@ BoxDecoration ContainerCaloriasPerdidas(){
         bottomLeft: Radius.circular(15),
         bottomRight: Radius.circular(15)
     ),
-    color: Color(0xffbbcb1d),
+    //color: Color(0xffbbcb1d),
+    color: Color.fromRGBO(255,250,200, 1.0),
   );
 }
 
