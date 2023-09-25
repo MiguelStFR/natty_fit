@@ -185,14 +185,14 @@ class HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 8),
                       ///CONTADOR
                       Center(
                         child: Container(
                           height: altura *0.1,
                           width: largura *0.9,
                           decoration: CronometroContainerStyle(),
-                          margin: const EdgeInsets.only(top: 18, left: 24, right: 24),
+                          margin: const EdgeInsets.only(top: 10, left: 24, right: 22),
                           child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -209,8 +209,8 @@ class HomePageState extends State<HomePage> {
                                 quarterTurns: 0,
                                 child: Icon(
                                   Icons.play_circle_outline,
-                                  color: Colors.white54,
-                                  size: 50,
+                                  color: Color(0xff909b18),
+                                  size: 55,
                                 ),
                               )
                             ],
