@@ -5,12 +5,14 @@ class SettingsPage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+    final altura = MediaQuery.of(context).size.height;
+    final largura = MediaQuery.of(context).size.width;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: const Color.fromRGBO(255,250,200, 1.0),
+        backgroundColor: Color.fromRGBO(7, 32, 52, 1.0),
         appBar: AppBar(
-          backgroundColor: const Color(0xff3d4109),
+          backgroundColor: Color.fromRGBO(7, 32, 52, 1.0),
           leading: BackButton(
             onPressed: () {
               Navigator.pop(context);
@@ -26,7 +28,7 @@ class SettingsPage extends StatelessWidget{
                       builder: (BuildContext context) {
                         return Container(
                           height: 230,
-                          color: const Color.fromRGBO(255,250,200, 1.0),
+                          color: const Color.fromRGBO(7, 32, 52, 1.0),
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -36,15 +38,15 @@ class SettingsPage extends StatelessWidget{
                                   child: const Row(
                                     children: <Widget>[
                                       SizedBox(width: 20),
-                                      Text('Criado por:\n\n- Miguel dos Santos \n- Pablo Las-Cazas\n- Gabriel El-Dine\n- Fábio Wnuk', textAlign: TextAlign.left),
-                                      SizedBox(width: 60),
+                                      Text('Criado por:\n\n- Miguel dos Santos \n- Pablo Las-Cazas\n- Gabriel El-Dine\n- Fábio Wnuk', textAlign: TextAlign.left, style: TextStyle(color: Colors.white),),
+                                      SizedBox(width: 20),
                                       // Container(
-                                      //   height: 200,
-                                      //   width: 200,
+                                      //   height: altura * 0.3,
+                                      //   width: largura*0.1,
                                       //   decoration: const BoxDecoration(
                                       //     image: DecorationImage(
-                                      //       image: AssetImage('assets/images/logo.jpg'),
-                                      //       fit: BoxFit.fill,
+                                      //       image: AssetImage('assets/images/logo.jpeg'),
+                                      //       fit: BoxFit.fitHeight,
                                       //     ),
                                       //   ),
                                       // ),
@@ -80,7 +82,7 @@ class SettingsPage extends StatelessWidget{
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => Dialog(
-                              backgroundColor: const Color.fromRGBO(255,250,200, 1.0),
+                              backgroundColor: const Color.fromRGBO(7, 32, 52, 1.0),
                               child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -105,7 +107,7 @@ class SettingsPage extends StatelessWidget{
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => Dialog(
-                            backgroundColor: const Color.fromRGBO(255,250,200, 1.0),
+                            backgroundColor: const Color.fromRGBO(7, 32, 52, 1.0),
                             //insetPadding: const EdgeInsets.all(8),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -165,7 +167,7 @@ class SettingsPage extends StatelessWidget{
                       showDialog(
                           context: context,
                           builder: (BuildContext context) => Dialog(
-                            backgroundColor: const Color.fromRGBO(255,250,200, 1.0),
+                            backgroundColor: const Color.fromRGBO(7, 32, 52, 1.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,

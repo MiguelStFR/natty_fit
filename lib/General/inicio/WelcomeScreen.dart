@@ -12,7 +12,7 @@ class WelcomeScreen extends StatelessWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: BackgroundStyle(),
+        decoration: BackgroundHomeStyle(),
         child: Column(
             children: [
               const Padding(

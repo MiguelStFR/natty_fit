@@ -14,7 +14,7 @@ class SignUpPage extends StatelessWidget {
             Container(
               height: double.infinity,
               width: double.infinity,
-              decoration: BackgroundStyle(),
+              decoration: BackgroundHomeStyle(),
               child: const Padding(
                 padding: EdgeInsets.only(top: 60.0, left: 22),
                 child: Text(
@@ -46,7 +46,7 @@ class SignUpPage extends StatelessWidget {
                             label: Text("Nome Completo",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color:Color(0xff757e13),
+                                color:Colors.white,
                               ),
                             )
                         ),
@@ -58,9 +58,9 @@ class SignUpPage extends StatelessWidget {
                       const TextField(
                         decoration: InputDecoration(
                             suffixIcon: Icon(Icons.check,color: Colors.grey,),
-                            label: Text('Phone or Gmail',style: TextStyle(
+                            label: Text('Numero ou email',style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color:Color(0xff757e13),
+                              color:Colors.white,
                               ),
                             )
                         ),
@@ -74,7 +74,7 @@ class SignUpPage extends StatelessWidget {
                             suffixIcon: Icon(Icons.visibility_off,color: Colors.grey,),
                             label: Text('Senha',style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color:Color(0xff757e13),
+                              color:Colors.white,
                               ),
                             )
                         ),
@@ -91,7 +91,7 @@ class SignUpPage extends StatelessWidget {
                             ),
                             label: Text('Confirmar Senha',style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color:Color(0xff757e13),
+                              color:Colors.white,
                               ),
                             )
                         ),
@@ -120,7 +120,7 @@ class SignUpPage extends StatelessWidget {
                           border: Border.all(color: Colors.white),
                         ),
                         child: const Center(
-                          child: Text('SIGN IN',
+                          child: Text('SIGN UP',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,

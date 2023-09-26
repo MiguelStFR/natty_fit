@@ -33,15 +33,14 @@ class HomePageState extends State<HomePage> {
         child: Stack(
           children: [
           Container(
-            //decoration: BackgroundHomeStyle(),
-            color: const Color.fromRGBO(255,250,200, 1.0),
+            decoration: SignWidgetStyle(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ColoredBox(
                   //color: const Color.fromRGBO(33, 150, 243, 1.0),
-                  color: const Color(0xff3d4109),
+                  color:  Color.fromRGBO(7, 32, 52, 1.0),
                   child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

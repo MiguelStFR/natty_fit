@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:natty_fit/General/Style/WidgetStyle.dart';
 import 'package:natty_fit/General/Home/Home.dart';
 import 'package:natty_fit/General/Home/ExercisesPage.dart';
 import 'package:natty_fit/General/Home/DietPage.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,7 +48,7 @@ class _HomeScreen extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromRGBO(255,250,200, 1.0),
+        backgroundColor: const Color.fromRGBO(33, 150, 243, 1.0),
         currentIndex: _selectedIndex,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.sports_martial_arts), label: 'Exercícios'),
@@ -56,7 +58,7 @@ class _HomeScreen extends State<HomeScreen> {
         onTap: (pagina) {
           pc.animateToPage(
             pagina,
-            duration: const Duration(milliseconds: 400),
+            duration: Duration(milliseconds: 400),
             curve: Curves.ease,
           );
         },

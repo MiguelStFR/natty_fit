@@ -15,7 +15,7 @@ class SignInScreen extends StatelessWidget {
             Container(
               height: double.infinity,
               width: double.infinity,
-              decoration: BackgroundStyle(),
+              decoration: BackgroundHomeStyle(),
               child: const Padding(
                 padding: EdgeInsets.only(top: 60.0, left: 22),
                 child: Text(
@@ -47,7 +47,7 @@ class SignInScreen extends StatelessWidget {
                             label: Text('Gmail',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color:Color(0xff757e13),
+                                color: Colors.white,
                               ),
                             )
                         ),
@@ -65,7 +65,7 @@ class SignInScreen extends StatelessWidget {
                             label: Text('Password',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color:Color(0xff757e13),
+                                color: Colors.white,
                               ),
                             )
                         ),
@@ -82,7 +82,7 @@ class SignInScreen extends StatelessWidget {
                         child: Text('Forgot Password?',style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
-                          color: Color(0xff909b18),
+                          color: Colors.white,
                         ),),
                       ),
                       const SizedBox(
@@ -122,7 +122,7 @@ class SignInScreen extends StatelessWidget {
                           children: [
                             Text("Don't have account?",style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xff909b18),
+                                color: Colors.white,
                               ),
                             ),
                             Text("Sign up",

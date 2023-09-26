@@ -39,7 +39,7 @@ BoxDecoration SignWidgetStyle(){
     ),
       gradient: LinearGradient(
         colors: [
-          Color(0xff1b1c04),
+          Color.fromRGBO(7, 32, 52, 1.0),
           Color(0xFF0E0E05),
         ],
         stops: [0.35, 0.6],
@@ -59,11 +59,10 @@ BoxDecoration InformacoesGeraisUsuarioContainerStyle(){
       ),
       gradient: LinearGradient(
         colors: [
-          Color(0xffbbcb1d),
-          Color(0xff757e13),
-          Color(0xff3d4109),
+          Color.fromRGBO(33, 150, 243, 1.0),
+          Color.fromRGBO(7, 32, 52, 1.0),
         ],
-        stops: [0.00, 0.4, 0.7],
+        stops: [ 0.4, 0.7],
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       )
@@ -78,7 +77,7 @@ BoxDecoration InformacoesCaloricasContainer(){
         bottomLeft: Radius.circular(15),
         bottomRight: Radius.circular(15)
     ),
-    color: Color(0xffbbcb1d),
+    color: Color.fromRGBO(33, 150, 243, 1.0),
   );
 }
 
@@ -91,7 +90,7 @@ BoxDecoration ContainerCaloriasPerdidas(){
         bottomRight: Radius.circular(15)
     ),
     //color: Color(0xffbbcb1d),
-    color: Color.fromRGBO(255,250,200, 1.0),
+    color: Color.fromRGBO(73, 174, 253, 1.0),
   );
 }
 
@@ -103,7 +102,7 @@ BoxDecoration ContainerExercicios(){
         bottomLeft: Radius.circular(15),
         bottomRight: Radius.circular(15)
     ),
-    color: Color(0xffbbcb1d),
+    color: Color.fromRGBO(33, 150, 243, 1.0),
   );
 }
 
@@ -150,7 +149,7 @@ BoxDecoration CronometroContainerStyle(){
 BoxDecoration BackgroundImage(){
   return const BoxDecoration(
     image:DecorationImage(
-      image: AssetImage("assets/images/BackGround.png"),
+      image: AssetImage("assets/images/back.png"),
       fit: BoxFit.cover,
     ),
   );
