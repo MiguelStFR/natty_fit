@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SettingsPage extends StatelessWidget{
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
     final altura = MediaQuery.of(context).size.height;
     final largura = MediaQuery.of(context).size.width;
     return MaterialApp(

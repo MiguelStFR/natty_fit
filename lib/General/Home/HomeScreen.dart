@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
 import 'package:natty_fit/General/Home/Home.dart';
@@ -19,6 +20,7 @@ class _HomeScreen extends State<HomeScreen> {
 
   @override
   void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
     super.initState();
     pc = PageController(initialPage: _selectedIndex);
   }
@@ -58,7 +60,7 @@ class _HomeScreen extends State<HomeScreen> {
         onTap: (pagina) {
           pc.animateToPage(
             pagina,
-            duration: Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 400),
             curve: Curves.ease,
           );
         },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:natty_fit/General/Home/HomeScreen.dart';
 import 'SignUpPage.dart';
 import 'package:natty_fit/General/Style/textStyle.dart';
@@ -9,6 +10,7 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
     return Scaffold(
         body: Stack(
           children: [

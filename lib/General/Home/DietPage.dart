@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
 
 class DietPage extends StatelessWidget {
@@ -6,9 +7,10 @@ class DietPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Minha Dieta'),
+        title: const Text('Minha Dieta'),
       ),
       body: const DietScreenBody(),
     );
