@@ -52,7 +52,7 @@ class DietScreenBody extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
 
             // Relatório Nutricional Mensal
             Container(
