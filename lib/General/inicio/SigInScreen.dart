@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:natty_fit/General/Home/HomeScreen.dart';
-import 'SignUpPage.dart';
-import 'package:natty_fit/General/Style/textStyle.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -46,7 +44,7 @@ class SignInScreen extends StatelessWidget {
                               Icons.check,
                               color: Colors.white54,
                             ),
-                            label: Text('Gmail',
+                            label: Text('Email',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,

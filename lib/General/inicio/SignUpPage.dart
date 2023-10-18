@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:natty_fit/General/inicio/SigInScreen.dart';
-import 'package:natty_fit/General/Style/textStyle.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -60,7 +59,7 @@ class SignUpPage extends StatelessWidget {
                       const TextField(
                         decoration: InputDecoration(
                             suffixIcon: Icon(Icons.check,color: Colors.grey,),
-                            label: Text('Numero ou email',style: TextStyle(
+                            label: Text('Email',style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color:Colors.white,
                               ),

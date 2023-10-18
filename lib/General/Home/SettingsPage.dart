@@ -115,24 +115,36 @@ class SettingsPage extends StatelessWidget{
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                const SizedBox(height: 10), // Remover quando começar à adicionar as opções
+                                const SizedBox(height: 10),
                                 const SizedBox(
                                   width: 270,
                                   child: TextField(
                                     obscureText: true,
+                                    style: TextStyle(color: Colors.white),
                                     decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.white),
+                                        ),
+                                        labelStyle: TextStyle(
+                                          color: Colors.white,
+                                        ),
                                         labelText: "Senha antiga: "
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 10), // Remover quando começar à adicionar as opções
+                                const SizedBox(height: 10),
                                 const SizedBox(
                                   width: 270,
                                   child: TextField(
                                     obscureText: true,
+                                    style: TextStyle(color: Colors.white),
                                     decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.white),
+                                        ),
+                                        labelStyle: TextStyle(
+                                          color: Colors.white,
+                                        ),
                                         labelText: "Senha nova: "
                                     ),
                                   ),
@@ -142,8 +154,14 @@ class SettingsPage extends StatelessWidget{
                                   width: 270,
                                   child: TextField(
                                     obscureText: true,
+                                    style: TextStyle(color: Colors.white),
                                     decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.white),
+                                        ),
+                                        labelStyle: TextStyle(
+                                          color: Colors.white,
+                                        ),
                                         labelText: "Repita a senha: "
                                     ),
                                   ),
