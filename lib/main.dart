@@ -7,7 +7,7 @@ import 'General/inicio/WelcomeScreen.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
-  runApp(Home());
+  runApp(const Home());
 }
 
 class Home extends StatefulWidget {

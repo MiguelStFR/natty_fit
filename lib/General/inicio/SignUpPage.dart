@@ -2,9 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:natty_fit/General/inicio/SigInScreen.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
+import 'package:natty_fit/sql_repository.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+  SignUpPage({Key? key}) : super(key: key);
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    //super.dispose();
+  }
+
+  Future<void> _addUser() async {
+    await SQL_Repository.addUser(_nameController.toString(), _emailController.toString(), _passwordController.toString(), _confirmPasswordController.toString());
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +58,10 @@ class SignUpPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const TextField(
-                        decoration: InputDecoration(
+                       TextField(
+                        keyboardType: TextInputType.text,
+                        controller: _nameController,
+                        decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.check,
                               color: Colors.grey,
                             ),
@@ -51,13 +72,15 @@ class SignUpPage extends StatelessWidget {
                               ),
                             )
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,
                         ),
                       ),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        keyboardType: TextInputType.text,
+                        controller: _emailController,
+                        decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.check,color: Colors.grey,),
                             label: Text('Email',style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -65,13 +88,15 @@ class SignUpPage extends StatelessWidget {
                               ),
                             )
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white,
                           fontSize: 12,
                         ),
                       ),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        keyboardType: TextInputType.text,
+                        controller: _passwordController,
+                        decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.visibility_off,color: Colors.grey,),
                             label: Text('Senha',style: TextStyle(
                               fontWeight: FontWeight.bold,
@@ -79,13 +104,15 @@ class SignUpPage extends StatelessWidget {
                               ),
                             )
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white,
                           fontSize: 12,
                         ),
                       ),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        keyboardType: TextInputType.text,
+                        controller: _confirmPasswordController,
+                        decoration: const InputDecoration(
                             suffixIcon: Icon(
                               Icons.visibility_off,
                               color: Colors.grey,
@@ -96,7 +123,7 @@ class SignUpPage extends StatelessWidget {
                               ),
                             )
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,
                         ),
@@ -109,9 +136,9 @@ class SignUpPage extends StatelessWidget {
                         height: 70,
                       ),
               GestureDetector(
-                onTap: (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const SignInScreen()));
+                onTap: () async{
+                  await _addUser();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInScreen()));
                 },
                 child:Container(
                         height: 55,
@@ -158,4 +185,5 @@ class SignUpPage extends StatelessWidget {
           ],
         ));
   }
+
 }

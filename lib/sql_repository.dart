@@ -75,12 +75,23 @@ class SQL_Repository {
     }
   }
 
-  static Future<int> fillUserData(int id, String bornDate, double height, double weight) async {
+  static Future<int> fillUserData(int id, DateTime bornDate, double height, double weight) async {
     final db = await SQL_Repository._loadDatabase();
     final data = {'born_date': bornDate, 'height': height, 'weight': weight, 'update_date': DateTime.now().toString()};
 
-    // var user =
+    // var dadosBanco = await db.query('user_table', where: "id = ?", whereArgs: [id], limit: 1);
     //
+    // User user = User(id, "", "", "", DateTime.now(), height, weight, DateTime.now(), DateTime.now());
+    // if(dadosBanco.isNotEmpty){
+    //   for (var dbUser in dadosBanco) {
+    //     user = dbUser.values as User;
+    //   }
+    //
+    //   user.born_date = bornDate;
+    //   user.height = height;
+    //   user.weight = weight;
+    // }
+
     final result = await db.update('user_table', data, where: "id = ?", whereArgs: [id]);
     return result;
   }
