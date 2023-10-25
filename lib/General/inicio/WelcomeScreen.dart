@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'SigInScreen.dart';
+import 'SignInScreen.dart';
 import 'SignUpPage.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
 

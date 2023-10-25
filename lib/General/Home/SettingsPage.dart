@@ -36,24 +36,22 @@ class SettingsPage extends StatelessWidget{
                               mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                Container(
-                                  child: const Row(
-                                    children: <Widget>[
-                                      SizedBox(width: 20),
-                                      Text('Criado por:\n\n- Miguel dos Santos \n- Pablo Las-Cazas\n- Gabriel El-Dine\n- Fábio Wnuk', textAlign: TextAlign.left, style: TextStyle(color: Colors.white),),
-                                      SizedBox(width: 20),
-                                      // Container(
-                                      //   height: altura * 0.3,
-                                      //   width: largura*0.1,
-                                      //   decoration: const BoxDecoration(
-                                      //     image: DecorationImage(
-                                      //       image: AssetImage('assets/images/logo.jpeg'),
-                                      //       fit: BoxFit.fitHeight,
-                                      //     ),
-                                      //   ),
-                                      // ),
-                                    ]
-                                  ),
+                                const Row(
+                                  children: <Widget>[
+                                    SizedBox(width: 20),
+                                    Text('Criado por:\n\n- Miguel dos Santos \n- Pablo Las-Cazas\n- Gabriel El-Dine\n- Fábio Wnuk', textAlign: TextAlign.left, style: TextStyle(color: Colors.white),),
+                                    SizedBox(width: 20),
+                                    // Container(
+                                    //   height: altura * 0.3,
+                                    //   width: largura*0.1,
+                                    //   decoration: const BoxDecoration(
+                                    //     image: DecorationImage(
+                                    //       image: AssetImage('assets/images/logo.jpeg'),
+                                    //       fit: BoxFit.fitHeight,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                  ]
                                 ),
                                 const SizedBox(height: 28),
                                 ElevatedButton(

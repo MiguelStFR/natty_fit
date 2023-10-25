@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:natty_fit/General/Style/WidgetStyle.dart';
 import 'package:natty_fit/General/Home/Home.dart';
 import 'package:natty_fit/General/Home/ExercisesPage.dart';
 import 'package:natty_fit/General/Home/DietPage.dart';
