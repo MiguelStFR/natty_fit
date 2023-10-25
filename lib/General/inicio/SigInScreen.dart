@@ -1,15 +1,42 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:natty_fit/General/Home/HomeScreen.dart';
+import 'package:natty_fit/General/Models/logInResult.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
+import 'package:natty_fit/General/inicio/SignUpPage.dart';
+import 'package:natty_fit/sql_repository.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  SignInScreen({Key? key}) : super(key: key);
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    //super.dispose();
+  }
+
+  void clearTextFields() {
+    _emailController.clear();
+    _passwordController.clear();
+  }
+
+  Future<LogInResult> logIn() async {
+    var result = await SQL_Repository.logIn(_emailController.text.toString(), _passwordController.text.toString());
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
     return Scaffold(
+        resizeToAvoidBottomInset : false,
         body: Stack(
           children: [
             Container(
@@ -38,8 +65,10 @@ class SignInScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        keyboardType: TextInputType.text,
+                        controller: _emailController,
+                        decoration: const InputDecoration(
                             suffixIcon: Icon(
                               Icons.check,
                               color: Colors.white54,
@@ -51,13 +80,15 @@ class SignInScreen extends StatelessWidget {
                               ),
                             )
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 12,
                         ),
                       ),
-                      const TextField(
-                        decoration: InputDecoration(
+                      TextField(
+                        keyboardType: TextInputType.text,
+                        controller: _passwordController,
+                        decoration: const InputDecoration(
                             suffixIcon: Icon(
                               Icons.visibility_off,
                               color: Colors.white54,
@@ -69,7 +100,7 @@ class SignInScreen extends StatelessWidget {
                               ),
                             )
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 12,
                         ),
@@ -89,10 +120,36 @@ class SignInScreen extends StatelessWidget {
                         height: 70,
                       ),
               GestureDetector(
-                onTap: (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()));
-                  },
+                onTap: () async{
+                  var result = await logIn();
+                  if(result.result == false){
+                    if(result.message == "Wrong Email or Password, try again"){
+                      Fluttertoast.showToast(
+                          msg: "Wrong Email or Password, try again",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.blueGrey,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+                      clearTextFields();
+                    }
+                  }
+                  else{
+                    Fluttertoast.showToast(
+                        msg: "Logged in",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.blueGrey,
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
+                    clearTextFields();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+                  }
+                },
                   child:Container(
                         height: 55,
                         width: 300,
@@ -101,7 +158,7 @@ class SignInScreen extends StatelessWidget {
                           border: Border.all(color: Colors.white),
                         ),
                         child: const Center(
-                          child: Text('SIGN IN',
+                          child: Text('Sign In',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -114,24 +171,37 @@ class SignInScreen extends StatelessWidget {
                       const SizedBox(
                         height: 150,
                       ),
-                      const Align(
+                      Align(
                         alignment: Alignment.bottomRight,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text("Don't have account?",style: TextStyle(
+                            const Text("Don't have an account?",style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),
                             ),
-                            Text("Sign up",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17,
-                                    color: Colors.white54
-                                ),
-                            ),
+                            // Text("Sign up",
+                            //     style: TextStyle(
+                            //         fontWeight: FontWeight.bold,
+                            //         fontSize: 17,
+                            //         color: Colors.white54
+                            //     ),
+                            // ),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Colors.blueGrey
+                              ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => SignUpPage())
+                                  );
+                                },
+                                child: const Text('Sign up')
+                            )
                           ],
                         ),
                       )

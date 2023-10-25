@@ -13,14 +13,14 @@ class SQL_Repository {
     final databasePath = await getDatabasesPath();
     final databaseLocation = join(databasePath, 'primaryDB.db');
     var db = await openDatabase(
-        databasePath,
+        databaseLocation,
         version: 1,
-        onCreate: (db, dbRecentVersion){
+        onCreate: (db, int version){
           String sql =
-              "CREATE TABLE user_table (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password_hash TEXT, name TEXT, born_date TEXT, height REAL, weight REAL, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT, inactive INTEGER DEFAULT 0)\n"
-              "CREATE TABLE exercises_table (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, difficulty_level INTEGER, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT, inactive INTEGER DEFAULT 0)\n"
-              "CREATE TABLE food_table (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, food_groupId INTEGER, calories REAL, unit_weight REAL, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT, inactive INTEGER DEFAULT 0)\n"
-              "CREATE TABLE food_group_table (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT,inactive INTEGER DEFAULT 0)";
+              "CREATE TABLE user_table (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password_hash TEXT, name TEXT, born_date TEXT, height REAL, weight REAL, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT, inactive INTEGER DEFAULT 0)\n";
+              //"CREATE TABLE exercises_table (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, difficulty_level INTEGER, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT, inactive INTEGER DEFAULT 0)\n"
+              //"CREATE TABLE food_table (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, food_groupId INTEGER, calories REAL, unit_weight REAL, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT, inactive INTEGER DEFAULT 0)\n"
+              //"CREATE TABLE food_group_table (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT,inactive INTEGER DEFAULT 0)";
           db.execute(sql);
         }
     );
@@ -37,17 +37,17 @@ class SQL_Repository {
     var hashedPassword = sha256.convert(utf8.encode(password));
 
     var emailValidation = await db.query('user_table', where: "email = ?", whereArgs: [email], limit: 1);
-    if(emailValidation.isEmpty){
+    if(emailValidation.isNotEmpty){
       var signInResult = SignInResult(false, "Email or Password already registered");
       return signInResult;
     }
     var passwordValidation = await db.query('user_table', where: "password_hash = ?", whereArgs: [hashedPassword.toString()], limit: 1);
-    if(passwordValidation.isEmpty){
+    if(passwordValidation.isNotEmpty){
       var signInResult = SignInResult(false, "Email or Password already registered");
       return signInResult;
     }
 
-    final data = {'name': name, 'email': email, 'password': hashedPassword.toString(), 'inactive': 0};
+    final data = {'name': name, 'email': email, 'password_hash': hashedPassword.toString(), 'inactive': 0};
     final response = await db.insert('user_table', data, conflictAlgorithm: sql.ConflictAlgorithm.replace);
 
     if(response != 0){

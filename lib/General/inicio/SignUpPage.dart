@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:natty_fit/General/Models/signInResult.dart';
 import 'package:natty_fit/General/inicio/SigInScreen.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
 import 'package:natty_fit/sql_repository.dart';
@@ -21,14 +23,23 @@ class SignUpPage extends StatelessWidget {
     //super.dispose();
   }
 
-  Future<void> _addUser() async {
-    await SQL_Repository.addUser(_nameController.toString(), _emailController.toString(), _passwordController.toString(), _confirmPasswordController.toString());
-    }
+  void clearTextFields(){
+    _nameController.clear();
+    _emailController.clear();
+    _passwordController.clear();
+    _confirmPasswordController.clear();
+  }
+
+  Future<SignInResult> _addUser() async {
+    var result = await SQL_Repository.addUser(_nameController.text.toString(), _emailController.text.toString(), _passwordController.text.toString(), _confirmPasswordController.text.toString());
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
     return Scaffold(
+        resizeToAvoidBottomInset : false,
         body: Stack(//thanks for watching
           children: [
             Container(
@@ -137,8 +148,58 @@ class SignUpPage extends StatelessWidget {
                       ),
               GestureDetector(
                 onTap: () async{
-                  await _addUser();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInScreen()));
+                  var result = await _addUser();
+                  if(result.result == false){
+                    if(result.message == "Passwords don't match"){
+                      Fluttertoast.showToast(
+                        msg: "Passwords don't match",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.blueGrey,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+                      clearTextFields();
+                    }
+                    if(result.message == "Email or Password already registered"){
+                      Fluttertoast.showToast(
+                          msg: "Email or Password already registered",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.blueGrey,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+                      clearTextFields();
+                    }
+                    if(result.message == "Error when registering the User"){
+                      Fluttertoast.showToast(
+                        msg: "Error when registering the User",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          timeInSecForIosWeb: 1,
+                          backgroundColor: Colors.blueGrey,
+                          textColor: Colors.white,
+                          fontSize: 16.0
+                      );
+                      clearTextFields();
+                    }
+                  }
+                  else{
+                    Fluttertoast.showToast(
+                      msg: "User Registered",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.blueGrey,
+                      textColor: Colors.white,
+                      fontSize: 16.0
+                    );
+                    clearTextFields();
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()));
+                  }
                 },
                 child:Container(
                         height: 55,
@@ -148,7 +209,7 @@ class SignUpPage extends StatelessWidget {
                           border: Border.all(color: Colors.white),
                         ),
                         child: const Center(
-                          child: Text('SIGN UP',
+                          child: Text('Sign Up',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
@@ -159,21 +220,29 @@ class SignUpPage extends StatelessWidget {
                       ),
               ),
                       const SizedBox(height: 80,),
-                      const Align(
+                      Align(
                         alignment: Alignment.bottomRight,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text("Já tem uma conta?",style: TextStyle(
+                            const Text("Already have an account?",style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey
                             ),),
-                            Text("Sign up",style: TextStyle(///done login page
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                                color: Colors.black
-                            ),),
+                            TextButton(
+                                style: TextButton.styleFrom(
+                                    foregroundColor: Colors.blueGrey
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignInScreen())
+                                  );
+                                },
+                                child: const Text('Sign up')
+                            )
                           ],
                         ),
                       )
