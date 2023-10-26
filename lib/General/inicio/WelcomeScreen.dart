@@ -38,44 +38,44 @@ class WelcomeScreen extends StatelessWidget {
               const SizedBox(
                 height: 200,
               ),
-              GestureDetector(
-                onTap: (){
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => SignInScreen()));
-                },
-                child: Container(
-                  height: 53,
-                  width: 320,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: Colors.white),
-                  ),
-                  child: const Center(
-                    child: Text('SIGN IN',
-                        style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 0.0,
+                  backgroundColor: Colors.red.withOpacity(0),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30),
                       ),
+                      side: BorderSide(color: Colors.white)),
+                ),
+                child: const SizedBox(
+                  height: 55,
+                  width: 250,
+                  child: Center(
+                    child: Text(
+                      'Sign In',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.white),
                     ),
                   ),
                 ),
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()));
+                },
               ),
               const SizedBox(height: 30,),
-              GestureDetector(
-                onTap: (){
+              ElevatedButton(
+                onPressed: (){
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SignUpPage()));
                 },
-                child: Container(
-                  height: 53,
-                  width: 320,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: Colors.white),
-                  ),
-                  child: const Center(child: Text('SIGN UP',style: TextStyle(
+                child: const SizedBox(
+                  height: 55,
+                  width: 250,
+
+                  child: Center(child: Text('Sign Up',style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black

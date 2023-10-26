@@ -1,8 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:natty_fit/General/Models/updatePasswordResult.dart';
+import 'package:natty_fit/sql_repository.dart';
 
 class SettingsPage extends StatelessWidget{
-  const SettingsPage({super.key});
+  SettingsPage({super.key});
+
+  final TextEditingController _oldPasswordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _oldPasswordController.dispose();
+    _newPasswordController.dispose();
+    _confirmPasswordController.dispose();
+    //super.dispose();
+  }
+
+  void clearTextFields() {
+    _oldPasswordController.clear();
+    _newPasswordController.clear();
+    _confirmPasswordController.clear();
+  }
+
+  Future<UpdatePasswordResult> _updatePassword() async {
+    var result = await SQL_Repository.updatePassword(
+        _oldPasswordController.text.toString(),
+        _newPasswordController.text.toString(),
+        _confirmPasswordController.text.toString());
+    return result;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +41,9 @@ class SettingsPage extends StatelessWidget{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Color.fromRGBO(7, 32, 52, 1.0),
+        backgroundColor: const Color.fromRGBO(7, 32, 52, 1.0),
         appBar: AppBar(
-          backgroundColor: Color.fromRGBO(7, 32, 52, 1.0),
+          backgroundColor: const Color.fromRGBO(7, 32, 52, 1.0),
           leading: BackButton(
             onPressed: () {
               Navigator.pop(context);
@@ -114,12 +143,13 @@ class SettingsPage extends StatelessWidget{
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 const SizedBox(height: 10),
-                                const SizedBox(
+                                SizedBox(
                                   width: 270,
                                   child: TextField(
+                                    controller: _oldPasswordController,
                                     obscureText: true,
-                                    style: TextStyle(color: Colors.white),
-                                    decoration: InputDecoration(
+                                    style: const TextStyle(color: Colors.white),
+                                    decoration: const InputDecoration(
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(color: Colors.white),
                                         ),
@@ -131,12 +161,13 @@ class SettingsPage extends StatelessWidget{
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                const SizedBox(
+                                SizedBox(
                                   width: 270,
                                   child: TextField(
+                                    controller: _newPasswordController,
                                     obscureText: true,
-                                    style: TextStyle(color: Colors.white),
-                                    decoration: InputDecoration(
+                                    style: const TextStyle(color: Colors.white),
+                                    decoration: const InputDecoration(
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(color: Colors.white),
                                         ),
@@ -148,12 +179,13 @@ class SettingsPage extends StatelessWidget{
                                   ),
                                 ),
                                 const SizedBox(height: 10), // Remover quando começar à adicionar as opções
-                                const SizedBox(
+                                SizedBox(
                                   width: 270,
                                   child: TextField(
+                                    controller: _confirmPasswordController,
                                     obscureText: true,
-                                    style: TextStyle(color: Colors.white),
-                                    decoration: InputDecoration(
+                                    style: const TextStyle(color: Colors.white),
+                                    decoration: const InputDecoration(
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(color: Colors.white),
                                         ),
@@ -166,10 +198,33 @@ class SettingsPage extends StatelessWidget{
                                 ),
                                 const SizedBox(height: 10), // Remover quando começar à adicionar as opções
                                 OutlinedButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
+                                    child: const Text("Salvar", selectionColor: Color.fromRGBO(255,250,200, 1.0)),
+                                    onPressed: () async {
+                                      var result = await _updatePassword();
+                                      if(result.result == false){
+                                        Fluttertoast.showToast(
+                                            msg: result.message,
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.blueGrey,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
+                                        clearTextFields();
+                                      }
+                                      else{
+                                        Fluttertoast.showToast(
+                                            msg: result.message,
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: Colors.blueGrey,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
+                                        clearTextFields();
+                                        if (!context.mounted) return;
+                                        Navigator.of(context).pop();                                      }
                                     },
-                                    child: const Text("Salvar", selectionColor: Color.fromRGBO(255,250,200, 1.0))
                                 ),
                                 const SizedBox(height: 10,)
                               ],
@@ -180,7 +235,9 @@ class SettingsPage extends StatelessWidget{
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    child: const Text("❌   Deletar conta"),
+                    child: const Text(
+                      "❌   Deletar conta",
+                    ),
                     onPressed: (){
                       showDialog(
                           context: context,
@@ -191,7 +248,12 @@ class SettingsPage extends StatelessWidget{
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 const SizedBox(height: 20), // Remover quando começar à adicionar as opções
-                                const Text("Você tem certeza que quer deletar a conta?"),
+                                const Text(
+                                  "Você tem certeza que quer deletar a conta?",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
                                 const SizedBox(height: 10), // Remover quando começar à adicionar as opções
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.center,

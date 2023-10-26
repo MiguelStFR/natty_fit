@@ -12,8 +12,7 @@ class SignUpPage extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
@@ -277,43 +276,8 @@ class SignUpPage extends StatelessWidget {
                           else{
                             var result = await _addUser();
                             if (result.result == false) {
-                              if (result.message == "Passwords don't match") {
-                                Fluttertoast.showToast(
-                                    msg: "Passwords don't match",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.blueGrey,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-                                clearTextFields();
-                              }
-                              if (result.message == "Email or Password already registered") {
-                                Fluttertoast.showToast(
-                                    msg: "Email or Password already registered",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.blueGrey,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-                                clearTextFields();
-                              }
-                              if (result.message ==
-                                  "Error when registering the User") {
-                                Fluttertoast.showToast(
-                                    msg: "Error when registering the User",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.blueGrey,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0);
-                                clearTextFields();
-                              }
-                            } else {
                               Fluttertoast.showToast(
-                                  msg: "User Registered",
+                                  msg: result.message,
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.BOTTOM,
                                   timeInSecForIosWeb: 1,
@@ -321,6 +285,17 @@ class SignUpPage extends StatelessWidget {
                                   textColor: Colors.white,
                                   fontSize: 16.0);
                               clearTextFields();
+                            } else {
+                              Fluttertoast.showToast(
+                                  msg: result.message,
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.blueGrey,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                              clearTextFields();
+                              if (!context.mounted) return;
                               Navigator.push(context, MaterialPageRoute(builder: (context) => SignInScreen()));
                             }
                           }
@@ -349,7 +324,7 @@ class SignUpPage extends StatelessWidget {
                                           builder: (context) =>
                                               SignInScreen()));
                                 },
-                                child: const Text('Sign up'))
+                                child: const Text('Sign in'))
                           ],
                         ),
                       )

@@ -120,88 +120,6 @@ class SignInScreen extends StatelessWidget {
                       const SizedBox(
                         height: 70,
                       ),
-                      // GestureDetector(onTap: () async {
-                      //   bool isEmailEmpty = _emailController.text.isEmpty ? true : false;
-                      //   bool isPasswordEmpty = _passwordController.text.isEmpty ? true : false;
-                      //   bool isBoth = isEmailEmpty == true && isPasswordEmpty == true ? true : false;
-                      //
-                      //   if (isBoth) {
-                      //     Fluttertoast.showToast(
-                      //         msg: "The fields are empty",
-                      //         toastLength: Toast.LENGTH_SHORT,
-                      //         gravity: ToastGravity.BOTTOM,
-                      //         timeInSecForIosWeb: 1,
-                      //         backgroundColor: Colors.blueGrey,
-                      //         textColor: Colors.white,
-                      //         fontSize: 16.0);
-                      //   } else {
-                      //     if (isEmailEmpty) {
-                      //       Fluttertoast.showToast(
-                      //           msg: "The email field is empty",
-                      //           toastLength: Toast.LENGTH_SHORT,
-                      //           gravity: ToastGravity.BOTTOM,
-                      //           timeInSecForIosWeb: 1,
-                      //           backgroundColor: Colors.blueGrey,
-                      //           textColor: Colors.white,
-                      //           fontSize: 16.0);
-                      //     }
-                      //     if (isPasswordEmpty) {
-                      //       Fluttertoast.showToast(
-                      //           msg: "The password field is empty",
-                      //           toastLength: Toast.LENGTH_SHORT,
-                      //           gravity: ToastGravity.BOTTOM,
-                      //           timeInSecForIosWeb: 1,
-                      //           backgroundColor: Colors.blueGrey,
-                      //           textColor: Colors.white,
-                      //           fontSize: 16.0);
-                      //     }
-                      //   }
-                      //
-                      //   if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
-                      //     var result = await logIn();
-                      //     if (result.result == false) {
-                      //       if (result.message == "Wrong Email or Password, try again") {
-                      //         Fluttertoast.showToast(
-                      //             msg: "Wrong Email or Password, try again",
-                      //             toastLength: Toast.LENGTH_SHORT,
-                      //             gravity: ToastGravity.BOTTOM,
-                      //             timeInSecForIosWeb: 1,
-                      //             backgroundColor: Colors.blueGrey,
-                      //             textColor: Colors.white,
-                      //             fontSize: 16.0);
-                      //         clearTextFields();
-                      //       }
-                      //     } else {
-                      //       Fluttertoast.showToast(
-                      //           msg: "Logged in",
-                      //           toastLength: Toast.LENGTH_SHORT,
-                      //           gravity: ToastGravity.BOTTOM,
-                      //           timeInSecForIosWeb: 1,
-                      //           backgroundColor: Colors.blueGrey,
-                      //           textColor: Colors.white,
-                      //           fontSize: 16.0);
-                      //       clearTextFields();
-                      //       Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
-                      //     }
-                      //   }
-                      //   Container(
-                      //     height: 55,
-                      //     width: 300,
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(30),
-                      //       border: Border.all(color: Colors.white),
-                      //     ),
-                      //     child: const Center(
-                      //       child: Text(
-                      //         'Sign In',
-                      //         style: TextStyle(
-                      //             fontWeight: FontWeight.bold,
-                      //             fontSize: 20,
-                      //             color: Colors.white),
-                      //       ),
-                      //     ),
-                      //   );
-                      // }), ;/
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             elevation: 0.0,
@@ -266,21 +184,8 @@ class SignInScreen extends StatelessWidget {
                                 _passwordController.text.isNotEmpty) {
                               var result = await logIn();
                               if (result.result == false) {
-                                if (result.message ==
-                                    "Wrong Email or Password, try again") {
-                                  Fluttertoast.showToast(
-                                      msg: "Wrong Email or Password, try again",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.BOTTOM,
-                                      timeInSecForIosWeb: 1,
-                                      backgroundColor: Colors.blueGrey,
-                                      textColor: Colors.white,
-                                      fontSize: 16.0);
-                                  clearTextFields();
-                                }
-                              } else {
                                 Fluttertoast.showToast(
-                                    msg: "Logged in",
+                                    msg: result.message,
                                     toastLength: Toast.LENGTH_SHORT,
                                     gravity: ToastGravity.BOTTOM,
                                     timeInSecForIosWeb: 1,
@@ -288,9 +193,18 @@ class SignInScreen extends StatelessWidget {
                                     textColor: Colors.white,
                                     fontSize: 16.0);
                                 clearTextFields();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => const HomeScreen())); //TODO Aplicar o fix para esse probleminha aqui
+                              } else {
+                                Fluttertoast.showToast(
+                                    msg: result.message,
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.blueGrey,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0);
+                                clearTextFields();
+                                if (!context.mounted) return;
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen())); //TODO Aplicar o fix para esse probleminha aqui
                               }
                             }
                           }),

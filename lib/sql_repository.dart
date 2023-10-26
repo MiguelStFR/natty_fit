@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
+
+
 
 import 'package:crypto/crypto.dart';
 import 'package:natty_fit/General/Models/logInResult.dart';
@@ -6,6 +9,8 @@ import 'package:natty_fit/General/Models/signInResult.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+
+import 'General/Models/updatePasswordResult.dart';
 
 class SQL_Repository {
 
@@ -94,5 +99,30 @@ class SQL_Repository {
 
     final result = await db.update('user_table', data, where: "id = ?", whereArgs: [id]);
     return result;
+  }
+
+  static Future<UpdatePasswordResult> updatePassword(String oldPassword, String newPassword, String confirmPassword) async{
+    if(newPassword != confirmPassword){
+      var resultValidation = UpdatePasswordResult(false, "Passwords don't match");
+      return resultValidation;
+    }
+
+    final db = await SQL_Repository._loadDatabase();
+    var hashedOldPassword = sha256.convert(utf8.encode(oldPassword));
+    var hashedNewPassword = sha256.convert(utf8.encode(newPassword));
+    var resultQuery = await db.query('user_table', where: "password_hash = ?", whereArgs: [hashedOldPassword.toString()], limit: 1);
+    if(resultQuery.isEmpty){
+      var resultValidation = UpdatePasswordResult(false, "Incorrect password, try again");
+      return resultValidation;
+    }
+
+    final data = {'password_hash': hashedNewPassword.toString() };
+    final result = await db.update('user_table', data, where: "id = ?", whereArgs: [resultQuery.first['id']]);
+    if(result != 0){
+      var resultValidation = UpdatePasswordResult(true, "Password updated");
+      return resultValidation;
+    }
+    var resultValidation = UpdatePasswordResult(false, "Operation Failed");
+    return resultValidation;
   }
 }
