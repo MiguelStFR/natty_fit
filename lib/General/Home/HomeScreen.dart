@@ -7,7 +7,8 @@ import 'package:natty_fit/General/Home/DietPage.dart';
 
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final int id;
+  const HomeScreen({super.key, required this.id});
 
   @override
   State<HomeScreen> createState() => _HomeScreen();
@@ -44,7 +45,7 @@ class _HomeScreen extends State<HomeScreen> {
         onPageChanged: setPaginaAtual,
         children: [
           ExercisesPage(),
-          const Home(),
+          Home(id: widget.id),
           DietPage(),
         ],
       ),

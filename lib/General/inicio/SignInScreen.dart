@@ -86,6 +86,7 @@ class SignInScreen extends StatelessWidget {
                       TextField(
                         keyboardType: TextInputType.text,
                         controller: _passwordController,
+                        obscureText: true,
                         decoration: const InputDecoration(
                             suffixIcon: Icon(
                               Icons.visibility_off,
@@ -180,8 +181,7 @@ class SignInScreen extends StatelessWidget {
                               }
                             }
 
-                            if (_emailController.text.isNotEmpty &&
-                                _passwordController.text.isNotEmpty) {
+                            if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
                               var result = await logIn();
                               if (result.result == false) {
                                 Fluttertoast.showToast(
@@ -204,7 +204,7 @@ class SignInScreen extends StatelessWidget {
                                     fontSize: 16.0);
                                 clearTextFields();
                                 if (!context.mounted) return;
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen())); //TODO Aplicar o fix para esse probleminha aqui
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(id: result.id))); //TODO Aplicar o fix para esse probleminha aqui
                               }
                             }
                           }),

@@ -5,7 +5,8 @@ import 'package:natty_fit/General/Models/updatePasswordResult.dart';
 import 'package:natty_fit/sql_repository.dart';
 
 class SettingsPage extends StatelessWidget{
-  SettingsPage({super.key});
+  final int id;
+  SettingsPage({super.key, required this.id});
 
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
@@ -25,8 +26,9 @@ class SettingsPage extends StatelessWidget{
     _confirmPasswordController.clear();
   }
 
-  Future<UpdatePasswordResult> _updatePassword() async {
+  Future<UpdatePasswordResult> _updatePassword(int id) async {
     var result = await SQL_Repository.updatePassword(
+        id,
         _oldPasswordController.text.toString(),
         _newPasswordController.text.toString(),
         _confirmPasswordController.text.toString());
@@ -68,7 +70,7 @@ class SettingsPage extends StatelessWidget{
                                 const Row(
                                   children: <Widget>[
                                     SizedBox(width: 20),
-                                    Text('Criado por:\n\n- Miguel dos Santos \n- Pablo Las-Cazas\n- Gabriel El-Dine\n- Fábio Wnuk', textAlign: TextAlign.left, style: TextStyle(color: Colors.white),),
+                                    Text('Criado por:\n\n- Miguel dos Santos \n- Pablo Las-Cazas\n- Gabriel El-Dine\n', textAlign: TextAlign.left, style: TextStyle(color: Colors.white),),
                                     SizedBox(width: 20),
                                     // Container(
                                     //   height: altura * 0.3,
@@ -200,7 +202,7 @@ class SettingsPage extends StatelessWidget{
                                 OutlinedButton(
                                     child: const Text("Salvar", selectionColor: Color.fromRGBO(255,250,200, 1.0)),
                                     onPressed: () async {
-                                      var result = await _updatePassword();
+                                      var result = await _updatePassword(id);
                                       if(result.result == false){
                                         Fluttertoast.showToast(
                                             msg: result.message,

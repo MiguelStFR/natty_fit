@@ -117,6 +117,7 @@ class SignUpPage extends StatelessWidget {
                       TextField(
                         keyboardType: TextInputType.text,
                         controller: _passwordController,
+                        obscureText: true,
                         decoration: const InputDecoration(
                             suffixIcon: Icon(
                               Icons.visibility_off,
@@ -137,6 +138,7 @@ class SignUpPage extends StatelessWidget {
                       TextField(
                         keyboardType: TextInputType.text,
                         controller: _confirmPasswordController,
+                        obscureText: true,
                         decoration: const InputDecoration(
                             suffixIcon: Icon(
                               Icons.visibility_off,

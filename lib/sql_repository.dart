@@ -68,14 +68,16 @@ class SQL_Repository {
   static Future<LogInResult> logIn(String email, String password) async{
     final db = await SQL_Repository._loadDatabase();
     var hashedPassword = sha256.convert(utf8.encode(password));
-    var result = await db.query('user_table', where: "email = ? AND password_hash = ?", whereArgs: [email, hashedPassword.toString()], limit: 1);
+    List<Map<String, dynamic?>> result = await db.query('user_table', where: "email = ? AND password_hash = ?", whereArgs: [email, hashedPassword.toString()], limit: 1);
 
     if(result.isEmpty){
-      var logInResult = LogInResult(false, "Wrong Email or Password, try again");
+      var logInResult = LogInResult(false, "Wrong Email or Password, try again", 0);
       return logInResult;
     }
     else{
-      var logInResult = LogInResult(true, "Logged in");
+      int userId = 0;
+      var list = result.toList();
+      var logInResult = LogInResult(true, "Logged in", result.first['id']);
       return logInResult;
     }
   }
@@ -101,7 +103,7 @@ class SQL_Repository {
     return result;
   }
 
-  static Future<UpdatePasswordResult> updatePassword(String oldPassword, String newPassword, String confirmPassword) async{
+  static Future<UpdatePasswordResult> updatePassword(int id, String oldPassword, String newPassword, String confirmPassword) async{
     if(newPassword != confirmPassword){
       var resultValidation = UpdatePasswordResult(false, "Passwords don't match");
       return resultValidation;
@@ -110,7 +112,7 @@ class SQL_Repository {
     final db = await SQL_Repository._loadDatabase();
     var hashedOldPassword = sha256.convert(utf8.encode(oldPassword));
     var hashedNewPassword = sha256.convert(utf8.encode(newPassword));
-    var resultQuery = await db.query('user_table', where: "password_hash = ?", whereArgs: [hashedOldPassword.toString()], limit: 1);
+    var resultQuery = await db.query('user_table', where: "password_hash = ? AND id = ?", whereArgs: [hashedOldPassword.toString(), id], limit: 1);
     if(resultQuery.isEmpty){
       var resultValidation = UpdatePasswordResult(false, "Incorrect password, try again");
       return resultValidation;

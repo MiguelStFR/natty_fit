@@ -3,21 +3,25 @@ import 'package:flutter/services.dart';
 import 'package:natty_fit/General/Home/SettingsPage.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
 
+
+
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  final int id;
+  const Home({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
-    return const MaterialApp(
-      home: HomePage(),
+    return MaterialApp(
+      home: HomePage(id: id),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final int id;
+  const HomePage({Key? key, required this.id}) : super(key: key);
 
   @override
   HomePageState createState() => HomePageState();
@@ -60,10 +64,7 @@ class HomePageState extends State<HomePage> {
                         iconSize: 40,
                         icon: const Icon(Icons.settings, color: Colors.white),
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SettingsPage())
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage(id: widget.id))
                           );
                         },
                       ),
