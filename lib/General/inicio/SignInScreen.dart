@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:natty_fit/General/Home/HomeScreen.dart';
-import 'package:natty_fit/General/Models/logInResult.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
 import 'package:natty_fit/General/inicio/SignUpPage.dart';
 import 'package:natty_fit/sql_repository.dart';
+
+import '../Models/Results.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:natty_fit/General/Models/updatePasswordResult.dart';
+import 'package:natty_fit/General/inicio/WelcomeScreen.dart';
 import 'package:natty_fit/sql_repository.dart';
+
+import '../Models/Results.dart';
 
 class SettingsPage extends StatelessWidget{
   final int id;
@@ -225,7 +227,8 @@ class SettingsPage extends StatelessWidget{
                                             fontSize: 16.0);
                                         clearTextFields();
                                         if (!context.mounted) return;
-                                        Navigator.of(context).pop();                                      }
+                                        Navigator.of(context).pop();
+                                      }
                                     },
                                 ),
                                 const SizedBox(height: 10,)
@@ -261,8 +264,32 @@ class SettingsPage extends StatelessWidget{
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       OutlinedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
+                                        onPressed: () async {
+                                          var result = await SQL_Repository.deleteUser(id);
+                                          if(!result.result){
+                                            Fluttertoast.showToast(
+                                                msg: result.message,
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.blueGrey,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
+                                            if (!context.mounted) return;
+                                            Navigator.pop(context);
+                                          }
+                                          else{
+                                            Fluttertoast.showToast(
+                                                msg: result.message,
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.blueGrey,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0);
+                                            if (!context.mounted) return;
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => const WelcomeScreen()));
+                                          }
                                         },
                                         child: const Text("Sim"),
                                       ),

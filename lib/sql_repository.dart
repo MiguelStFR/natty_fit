@@ -1,16 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-
-
 import 'package:crypto/crypto.dart';
-import 'package:natty_fit/General/Models/logInResult.dart';
-import 'package:natty_fit/General/Models/signInResult.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import 'General/Models/updatePasswordResult.dart';
+import 'General/Models/Results.dart';
 
 class SQL_Repository {
 
@@ -126,5 +122,24 @@ class SQL_Repository {
     }
     var resultValidation = UpdatePasswordResult(false, "Operation Failed");
     return resultValidation;
+  }
+
+  static Future<DeleteUserResult> deleteUser(int id) async{
+    final db = await SQL_Repository._loadDatabase();
+    var validation = await db.query('user_table', where: "id = ?", whereArgs: [id], limit: 1);
+    if(validation.isEmpty){
+      var deleteResult = DeleteUserResult(false, "User not found");
+      return deleteResult;
+    }
+
+    var result = await db.delete('user_table', where: "id = ?", whereArgs: [id]);
+    if(result != 0){
+      var deleteResult = DeleteUserResult(true, "Success");
+      return deleteResult;
+    }
+    else{
+      var deleteResult = DeleteUserResult(false, "Operation Failed");
+      return deleteResult;
+    }
   }
 }

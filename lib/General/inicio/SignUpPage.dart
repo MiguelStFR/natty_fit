@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:natty_fit/General/Models/signInResult.dart';
 import 'package:natty_fit/General/inicio/SignInScreen.dart';
 import 'package:natty_fit/General/Style/WidgetStyle.dart';
 import 'package:natty_fit/sql_repository.dart';
+
+import '../Models/Results.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({Key? key}) : super(key: key);
@@ -162,79 +163,6 @@ class SignUpPage extends StatelessWidget {
                       const SizedBox(
                         height: 70,
                       ),
-                      // GestureDetector(
-                      //   onTap: () async {
-                      //     var result = await _addUser();
-                      //     if (result.result == false) {
-                      //       if (result.message == "Passwords don't match") {
-                      //         Fluttertoast.showToast(
-                      //             msg: "Passwords don't match",
-                      //             toastLength: Toast.LENGTH_SHORT,
-                      //             gravity: ToastGravity.BOTTOM,
-                      //             timeInSecForIosWeb: 1,
-                      //             backgroundColor: Colors.blueGrey,
-                      //             textColor: Colors.white,
-                      //             fontSize: 16.0);
-                      //         clearTextFields();
-                      //       }
-                      //       if (result.message ==
-                      //           "Email or Password already registered") {
-                      //         Fluttertoast.showToast(
-                      //             msg: "Email or Password already registered",
-                      //             toastLength: Toast.LENGTH_SHORT,
-                      //             gravity: ToastGravity.BOTTOM,
-                      //             timeInSecForIosWeb: 1,
-                      //             backgroundColor: Colors.blueGrey,
-                      //             textColor: Colors.white,
-                      //             fontSize: 16.0);
-                      //         clearTextFields();
-                      //       }
-                      //       if (result.message ==
-                      //           "Error when registering the User") {
-                      //         Fluttertoast.showToast(
-                      //             msg: "Error when registering the User",
-                      //             toastLength: Toast.LENGTH_SHORT,
-                      //             gravity: ToastGravity.BOTTOM,
-                      //             timeInSecForIosWeb: 1,
-                      //             backgroundColor: Colors.blueGrey,
-                      //             textColor: Colors.white,
-                      //             fontSize: 16.0);
-                      //         clearTextFields();
-                      //       }
-                      //     } else {
-                      //       Fluttertoast.showToast(
-                      //           msg: "User Registered",
-                      //           toastLength: Toast.LENGTH_SHORT,
-                      //           gravity: ToastGravity.BOTTOM,
-                      //           timeInSecForIosWeb: 1,
-                      //           backgroundColor: Colors.blueGrey,
-                      //           textColor: Colors.white,
-                      //           fontSize: 16.0);
-                      //       clearTextFields();
-                      //       Navigator.push(
-                      //           context,
-                      //           MaterialPageRoute(
-                      //               builder: (context) => SignInScreen()));
-                      //     }
-                      //   },
-                      //   child: Container(
-                      //     height: 55,
-                      //     width: 300,
-                      //     decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(30),
-                      //       border: Border.all(color: Colors.white),
-                      //     ),
-                      //     child: const Center(
-                      //       child: Text(
-                      //         'Sign Up',
-                      //         style: TextStyle(
-                      //             fontWeight: FontWeight.bold,
-                      //             fontSize: 20,
-                      //             color: Colors.white),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           elevation: 0.0,
