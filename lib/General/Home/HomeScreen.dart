@@ -53,7 +53,7 @@ class _HomeScreen extends State<HomeScreen> {
         backgroundColor: const Color.fromRGBO(33, 150, 243, 1.0),
         currentIndex: _selectedIndex,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.sports_martial_arts), label: 'Exercícios'),
+          BottomNavigationBarItem(icon: Icon(Icons.sports_martial_arts), label: 'Exercícios', ),
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.restaurant_menu), label: 'Dieta'),
         ],

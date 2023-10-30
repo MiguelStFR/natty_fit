@@ -6,6 +6,20 @@ class LogInResult{
   LogInResult(this.result, this.message, this.id);
 }
 
+class ExerciseResult{
+  bool result;
+  String message;
+
+  ExerciseResult(this.result, this.message);
+}
+
+class ExerciseSelectResult{
+  bool result;
+  String message;
+
+  ExerciseSelectResult(this.result, this.message);
+}
+
 class SignInResult {
   bool result;
   String message;

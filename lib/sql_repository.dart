@@ -7,6 +7,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 import 'General/Models/Results.dart';
+import 'General/Models/Exercise.dart';
 
 class SQL_Repository {
 
@@ -17,12 +18,13 @@ class SQL_Repository {
         databaseLocation,
         version: 1,
         onCreate: (db, int version){
-          String sql =
+          String createUserTable =
               "CREATE TABLE user_table (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password_hash TEXT, name TEXT, born_date TEXT, height REAL, weight REAL, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT, inactive INTEGER DEFAULT 0)\n";
-              //"CREATE TABLE exercises_table (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, difficulty_level INTEGER, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT, inactive INTEGER DEFAULT 0)\n"
               //"CREATE TABLE food_table (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, icon TEXT, food_groupId INTEGER, calories REAL, unit_weight REAL, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT, inactive INTEGER DEFAULT 0)\n"
               //"CREATE TABLE food_group_table (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, update_date TEXT,inactive INTEGER DEFAULT 0)";
-          db.execute(sql);
+          String createExercisesTable = "CREATE TABLE exercises_table (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, type_exercise TEXT, createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, body_part TEXT, equipment TEXT, level TEXT)\n";
+          db.execute(createUserTable);
+          db.execute(createExercisesTable);
         }
     );
     return db;
@@ -58,6 +60,85 @@ class SQL_Repository {
     else {
       var signInResult = SignInResult(false, "Error when registering the User");
       return signInResult;
+    }
+  }
+
+  static Future<ExerciseResult> addExercise(List<Exercise> exerciseList) async {
+
+    int response = 1;
+
+    final db = await SQL_Repository._loadDatabase();
+
+    for(var exercise in exerciseList) {
+      final data = {
+        'name': exercise.name,
+        'description': exercise.description,
+        'type_exercise': exercise.type_exercise,
+        'body_part': exercise.body_part,
+        'equipment': exercise.equipment,
+        'level': exercise.level
+      };
+      final responseAux = await db.insert('exercises_table', data);
+      if(responseAux == 0){
+        response = responseAux;
+        break;
+      }
+    }
+    if(response != 0){
+      var exerciseResult = ExerciseResult(true, "Exercise Added");
+      return exerciseResult;
+    }
+    else {
+      var exerciseResult = ExerciseResult(false, "Error when adding the Exercise");
+      return exerciseResult;
+    }
+  }
+
+  static Future<List<Exercise>> ExercisesSelectByType(String type) async{
+    final db = await SQL_Repository._loadDatabase();
+    List<Map<String, Object?>> result = await db.query('exercises_table', where: "type_exercise = ?", whereArgs: [type], limit: 6);
+    List<Exercise> exerciseList = [];
+    if(result.isEmpty){
+      return exerciseList;
+    }
+    else{
+      for (var exercise in result) {
+        Exercise exerciseAux = Exercise(exercise[0].toString(),exercise[1].toString(), exercise[2].toString(), exercise[3].toString(), exercise[4].toString(), exercise[5].toString(), exercise[6].toString(), exercise[7].toString(), exercise[8].toString());
+        exerciseList.add(exerciseAux);
+      }
+      return exerciseList;
+    }
+  }
+
+  static Future<List<Exercise>> ExercisesSelectByBodyPart(String BodyPart) async{
+    final db = await SQL_Repository._loadDatabase();
+    List<Map<String, Object?>> result = await db.query('exercises_table', where: "body_part = ?", whereArgs: [BodyPart], limit: 6);
+    List<Exercise> exerciseList = [];
+    if(result.isEmpty){
+      return exerciseList;
+    }
+    else{
+      for (var exercise in result) {
+        Exercise exerciseAux = Exercise(exercise[0].toString(),exercise[1].toString(), exercise[2].toString(), exercise[3].toString(), exercise[4].toString(), exercise[5].toString(), exercise[6].toString(), exercise[7].toString(), exercise[8].toString());
+        exerciseList.add(exerciseAux);
+      }
+      return exerciseList;
+    }
+  }
+
+  static Future<List<Exercise>> ExercisesSelectByLevel(String level) async{
+    final db = await SQL_Repository._loadDatabase();
+    List<Map<String, Object?>> result = await db.query('exercises_table', where: "level = ?", whereArgs: [level], limit: 6);
+    List<Exercise> exerciseList = [];
+    if(result.isEmpty){
+      return exerciseList;
+    }
+    else{
+      for (var exercise in result) {
+        Exercise exerciseAux = Exercise(exercise[0].toString(),exercise[1].toString(), exercise[2].toString(), exercise[3].toString(), exercise[4].toString(), exercise[5].toString(), exercise[6].toString(), exercise[7].toString(), exercise[8].toString());
+        exerciseList.add(exerciseAux);
+      }
+      return exerciseList;
     }
   }
 
