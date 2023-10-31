@@ -1,3 +1,5 @@
+import 'package:natty_fit/General/Models/User.dart';
+
 class LogInResult{
   bool result;
   String message;
@@ -39,4 +41,12 @@ class UpdatePasswordResult{
   String message;
 
   UpdatePasswordResult(this.result, this.message);
+}
+
+class GetUserFromIdResult{
+  bool result;
+  String message;
+  User? user;
+
+  GetUserFromIdResult(this.result, this.message, this.user);
 }
