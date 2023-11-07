@@ -64,7 +64,6 @@ class SQL_Repository {
   }
 
   static Future<ExerciseResult> addExercise(List<Exercise> exerciseList) async {
-
     int response = 1;
 
     final db = await SQL_Repository._loadDatabase();
@@ -98,48 +97,106 @@ class SQL_Repository {
     final db = await SQL_Repository._loadDatabase();
     List<Map<String, Object?>> result = await db.query('exercises_table', where: "type_exercise = ?", whereArgs: [type], limit: 6);
     List<Exercise> exerciseList = [];
-    if(result.isEmpty){
-      return exerciseList;
-    }
-    else{
+
       for (var exercise in result) {
-        Exercise exerciseAux = Exercise(exercise[0].toString(),exercise[1].toString(), exercise[2].toString(), exercise[3].toString(), exercise[4].toString(), exercise[5].toString(), exercise[6].toString(), exercise[7].toString(), exercise[8].toString());
+        Exercise exerciseAux = Exercise(
+            exercise[0].toString(),
+            exercise[1].toString(),
+            exercise[2].toString(),
+            exercise[3].toString(),
+            exercise[4].toString(),
+            exercise[5].toString(),
+            exercise[6].toString(),
+            exercise[7].toString(),
+            exercise[8].toString());
         exerciseList.add(exerciseAux);
       }
       return exerciseList;
-    }
+
   }
 
   static Future<List<Exercise>> ExercisesSelectByBodyPart(String BodyPart) async{
     final db = await SQL_Repository._loadDatabase();
     List<Map<String, Object?>> result = await db.query('exercises_table', where: "body_part = ?", whereArgs: [BodyPart], limit: 6);
     List<Exercise> exerciseList = [];
-    if(result.isEmpty){
-      return exerciseList;
-    }
-    else{
+
       for (var exercise in result) {
-        Exercise exerciseAux = Exercise(exercise[0].toString(),exercise[1].toString(), exercise[2].toString(), exercise[3].toString(), exercise[4].toString(), exercise[5].toString(), exercise[6].toString(), exercise[7].toString(), exercise[8].toString());
+        Exercise exerciseAux = Exercise(
+            exercise[0].toString(),
+            exercise[1].toString(),
+            exercise[2].toString(),
+            exercise[3].toString(),
+            exercise[4].toString(),
+            exercise[5].toString(),
+            exercise[6].toString(),
+            exercise[7].toString(),
+            exercise[8].toString());
         exerciseList.add(exerciseAux);
       }
       return exerciseList;
+  }
+  static Future<List<Exercise>> ExercisesSelectByOneParameter(String column, String whereArgs) async{
+    final db = await SQL_Repository._loadDatabase();
+    List<Map<String, Object?>> result = await db.query('exercises_table', where: '$column = ?', whereArgs: [whereArgs], limit: 6);
+    List<Exercise> exerciseList = [];
+
+    for (var exercise in result) {
+      Exercise exerciseAux = Exercise(
+          exercise[0].toString(),
+          exercise[1].toString(),
+          exercise[2].toString(),
+          exercise[3].toString(),
+          exercise[4].toString(),
+          exercise[5].toString(),
+          exercise[6].toString(),
+          exercise[7].toString(),
+          exercise[8].toString());
+      exerciseList.add(exerciseAux);
     }
+    return exerciseList;
   }
 
-  static Future<List<Exercise>> ExercisesSelectByLevel(String level) async{
+  static Future<List<Exercise>> ExercisesSelectByTwoParameters(String column1, String column2, String whereArgs1, String whereArgs2) async{
     final db = await SQL_Repository._loadDatabase();
-    List<Map<String, Object?>> result = await db.query('exercises_table', where: "level = ?", whereArgs: [level], limit: 6);
+    List<Map<String, Object?>> result = await db.query('exercises_table', where: '$column1 = ? and $column2 = ?', whereArgs: [whereArgs1, whereArgs2], limit: 6);
     List<Exercise> exerciseList = [];
-    if(result.isEmpty){
-      return exerciseList;
+
+    for (var exercise in result) {
+      Exercise exerciseAux = Exercise(
+          exercise[0].toString(),
+          exercise[1].toString(),
+          exercise[2].toString(),
+          exercise[3].toString(),
+          exercise[4].toString(),
+          exercise[5].toString(),
+          exercise[6].toString(),
+          exercise[7].toString(),
+          exercise[8].toString());
+      exerciseList.add(exerciseAux);
     }
-    else{
-      for (var exercise in result) {
-        Exercise exerciseAux = Exercise(exercise[0].toString(),exercise[1].toString(), exercise[2].toString(), exercise[3].toString(), exercise[4].toString(), exercise[5].toString(), exercise[6].toString(), exercise[7].toString(), exercise[8].toString());
-        exerciseList.add(exerciseAux);
-      }
-      return exerciseList;
+    return exerciseList;
+  }
+
+
+  static Future<List<Exercise>> ExercisesSelectByThreeParameters(String column1, String column2, String column3, String whereArgs1, String whereArgs2, String whereArgs3) async{
+    final db = await SQL_Repository._loadDatabase();
+    List<Map<String, Object?>> result = await db.query('exercises_table', where: '$column1 = ? and $column2 = ? and $column2 = ?', whereArgs: [whereArgs1, whereArgs2, whereArgs3], limit: 6);
+    List<Exercise> exerciseList = [];
+
+    for (var exercise in result) {
+      Exercise exerciseAux = Exercise(
+          exercise[0].toString(),
+          exercise[1].toString(),
+          exercise[2].toString(),
+          exercise[3].toString(),
+          exercise[4].toString(),
+          exercise[5].toString(),
+          exercise[6].toString(),
+          exercise[7].toString(),
+          exercise[8].toString());
+      exerciseList.add(exerciseAux);
     }
+    return exerciseList;
   }
 
   static Future<LogInResult> logIn(String email, String password) async{

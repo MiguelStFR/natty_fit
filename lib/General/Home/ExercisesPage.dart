@@ -41,27 +41,35 @@ class _ExercisesPageState extends State<ExercisesPage>{
     return result;
   }
 
-  Future<List<Exercise>> _filterBylevel(String level) async {
-    List<Exercise> result = await SQL_Repository.ExercisesSelectByLevel(level);
+  static Future<List<Exercise>> _selectByOneParameter(String column, String whereArgs) async {
+    List<Exercise> result = await SQL_Repository.ExercisesSelectByOneParameter(column, whereArgs);
     return result;
   }
 
-  Future<List<Exercise>> _filterByType(String type) async {
-    List<Exercise> result = await SQL_Repository.ExercisesSelectByLevel(type);
+  static Future<List<Exercise>> _selectByBodyPart(String BodyPart) async {
+    List<Exercise> result = await SQL_Repository.ExercisesSelectByBodyPart(BodyPart);
     return result;
   }
 
-  Future<List<Exercise>> _filterByBodyPart(String BodyPart) async {
-    List<Exercise> result = await SQL_Repository.ExercisesSelectByLevel(BodyPart);
+  static Future<List<Exercise>> _selectByType(String Type) async {
+    List<Exercise> result = await SQL_Repository.ExercisesSelectByType(Type);
     return result;
   }
+
+  List<Exercise>? ex_test;
 
   @override
   Widget build(BuildContext context) {
 
 
-    if(!CSV_charged)_loadCSV();
+    //if(!CSV_charged)_loadCSV();
     if(!databaseExercisesDone)_fillExerciseDatabase(_exercises);
+
+    _selectByOneParameter('Strength', 'type').then((value) {
+      setState(() {
+        _exercises = value;
+      });
+    });
 
     List<Exercise> _exercises_test = [];
     for(int i = 0; i < 10; i++) {
