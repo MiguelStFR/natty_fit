@@ -1,0 +1,65 @@
+class Item {
+  String grupo;
+  String tipo;
+  String dificuldade;
+  String equipamento;
+  String eficacia;
+
+  Item(this.grupo, this.tipo, this.dificuldade, this.equipamento, this.eficacia);
+}
+
+class Filtro {
+  String? grupo;
+  String? tipo;
+  String? dificuldade;
+  String? equipamento;
+  String? eficacia;
+
+  bool atendeCriterios(Item item) {
+    if (grupo != null && grupo != item.grupo) {
+      return false;
+    }
+
+    if (tipo != null && tipo != item.tipo) {
+      return false;
+    }
+
+    if (dificuldade != null && dificuldade != item.dificuldade) {
+      return false;
+    }
+
+    if (equipamento != null && equipamento != item.equipamento) {
+      return false;
+    }
+
+    if (eficacia != null && eficacia != item.eficacia) {
+      return false;
+    }
+
+    return true;
+  }
+}
+
+void main() {
+  // Banco de dados de exemplo
+  List<Item> bancoDeDados = [
+    Item("Grupo1", "Tipo1", "Fácil", "Equipamento1", "Alta"),
+    Item("Grupo2", "Tipo2", "Média", "Equipamento2", "Média"),
+    Item("Grupo1", "Tipo3", "Difícil", "Equipamento3", "Baixa"),
+    // Adicione mais itens conforme necessário
+  ];
+
+  // Exemplo de filtro
+  Filtro filtro = Filtro()
+    ..grupo = "Grupo1"
+    ..dificuldade = "Fácil";
+
+  // Aplicar filtro ao banco de dados
+  List<Item> resultados = bancoDeDados.where((item) => filtro.atendeCriterios(item)).toList();
+
+  // Exibir resultados
+  print("Resultados do filtro:");
+  for (var item in resultados) {
+    print("Grupo: ${item.grupo}, Tipo: ${item.tipo}, Dificuldade: ${item.dificuldade}, Equipamento: ${item.equipamento}, Eficácia: ${item.eficacia}");
+  }
+}
