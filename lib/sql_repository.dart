@@ -8,6 +8,7 @@ import 'package:path/path.dart';
 
 import 'General/Models/Results.dart';
 import 'General/Models/Exercise.dart';
+import 'General/Models/User.dart';
 
 class SQL_Repository {
 
@@ -279,5 +280,16 @@ class SQL_Repository {
       var deleteResult = DeleteUserResult(false, "Operation Failed");
       return deleteResult;
     }
+  }
+
+  static Future<GetUserFromIdResult> getUserFromId(int id) async {
+    final db = await SQL_Repository._loadDatabase();
+    var userMap = await db.query('user_table', where: "id = ?", whereArgs: [id], limit: 1);
+    if(userMap.isEmpty){
+      var getResult = GetUserFromIdResult(false, "User not found", null);
+      return getResult;
+    }
+
+    var getResult = GetUserFromIdResult(true, "Success", null); //TODO Finalizar isso daqui
   }
 }
