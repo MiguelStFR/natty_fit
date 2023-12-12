@@ -283,10 +283,17 @@ class SQL_Repository {
       return getResult;
     }
 
-    for(int i = 0; i < userMap.length; i++){
-      User user = new User(userMap['id'], )
+    for(var user in userMap){
+      UserForScreen userForScreen = UserForScreen(user['id'].toString(), user['email'].toString(), user['password_hash'].toString(),
+      user['name'].toString(), user['born_data'].toString(), user['height'].toString(), user['weight'].toString(),
+      user['createdAt'].toString(), user['updateDate'].toString());
+
+      var getResult = GetUserFromIdResult(true, "Success", userForScreen);
+
+      return getResult;
     }
 
-    var getResult = GetUserFromIdResult(true, "Success", userMap);
+    var getResult = GetUserFromIdResult(false, "Error", null);
+    return getResult;
   }
 }

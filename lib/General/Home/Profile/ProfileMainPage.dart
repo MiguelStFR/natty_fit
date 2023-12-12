@@ -39,7 +39,7 @@ class ProfileMain extends StatelessWidget{
                     width: 120,
                     height: 120,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(100), child: const Image(image: AssetImage(tUserStockImage)),
+                      borderRadius: BorderRadius.circular(100),
                     ),
                   ),
                   Positioned(

@@ -46,7 +46,7 @@ class UpdatePasswordResult{
 class GetUserFromIdResult{
   bool result;
   String message;
-  User? user;
+  UserForScreen? userForScreen;
 
-  GetUserFromIdResult(this.result, this.message, this.user);
+  GetUserFromIdResult(this.result, this.message, this.userForScreen);
 }
