@@ -93,26 +93,19 @@ class SQL_Repository {
     }
   }
 
-  static Future<List<Exercise>> ExercisesSelectByType(String type) async{
+  static List<ExerciseCard> ExerciseCardList(List result){
+    List<ExerciseCard> exerciseListAux = [];
+    for (var exer in result) {
+      ExerciseCard ExerciseAux = ExerciseCard(exer['id'].toString(), exer['name'], exer['description'], exer['type_exercise'], exer['createdAt'], exer['body_part'], exer['equipment'], exer['level']);
+      exerciseListAux.add(ExerciseAux);
+    }
+    return exerciseListAux;
+  }
+
+  static Future<List<ExerciseCard>> ExercisesSelectByType(String type) async{
     final db = await SQL_Repository._loadDatabase();
-    List<Map<String, Object?>> result = await db.query('exercises_table', where: "type_exercise = ?", whereArgs: [type], limit: 6);
-    List<Exercise> exerciseList = [];
-
-      for (var exercise in result) {
-        Exercise exerciseAux = Exercise(
-            exercise[0].toString(),
-            exercise[1].toString(),
-            exercise[2].toString(),
-            exercise[3].toString(),
-            exercise[4].toString(),
-            exercise[5].toString(),
-            exercise[6].toString(),
-            exercise[7].toString(),
-            exercise[8].toString());
-        exerciseList.add(exerciseAux);
-      }
-      return exerciseList;
-
+    List result = await db.query('exercises_table', where: "type_exercise = ?", whereArgs: [type], limit: 6);
+    return ExerciseCardList(result);
   }
 
   static Future<List<Exercise>> ExercisesSelectByBodyPart(String BodyPart) async{
