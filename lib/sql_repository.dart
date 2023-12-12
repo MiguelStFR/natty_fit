@@ -284,12 +284,16 @@ class SQL_Repository {
 
   static Future<GetUserFromIdResult> getUserFromId(int id) async {
     final db = await SQL_Repository._loadDatabase();
-    var userMap = await db.query('user_table', where: "id = ?", whereArgs: [id], limit: 1);
+    List userMap = await db.query('user_table', where: "id = ?", whereArgs: [id], limit: 1);
     if(userMap.isEmpty){
       var getResult = GetUserFromIdResult(false, "User not found", null);
       return getResult;
     }
 
-    var getResult = GetUserFromIdResult(true, "Success", null); //TODO Finalizar isso daqui
+    for(int i = 0; i < userMap.length; i++){
+      User user = new User(userMap['id'], )
+    }
+
+    var getResult = GetUserFromIdResult(true, "Success", userMap);
   }
 }
