@@ -17,7 +17,8 @@ class _ExercisesPageState extends State<ExercisesPage>{
   bool CSV_charged = false;
   bool databaseExercisesDone = false;
   //final List<List<dynamic>> _exercises = [];
-  List<Exercise> _exercises = [];
+  List<ExerciseCard> _exercises = [];
+  List<Exercise> _exerciseCSV = [];
 
   void _loadCSV() async{
     final _rawData = await rootBundle.loadString("assets/megaGymDataset.csv");
@@ -26,7 +27,7 @@ class _ExercisesPageState extends State<ExercisesPage>{
     setState(() {
       for(var exercise in _listExercises){
         Exercise exerciseAux = new Exercise(exercise[0].toString(),exercise[1].toString(), exercise[2].toString(), exercise[3].toString(), exercise[4].toString(), exercise[5].toString(), exercise[6].toString(), exercise[7].toString(), exercise[8].toString());
-        _exercises.add(exerciseAux);
+        _exerciseCSV.add(exerciseAux);
       }
       CSV_charged = true;
     });
@@ -36,7 +37,7 @@ class _ExercisesPageState extends State<ExercisesPage>{
     var result = await SQL_Repository.addExercise(ExerciseList);
     if(result.result = true){
       print("Banco preenchido");
-      databaseExercisesDone = false;
+      databaseExercisesDone = true;
     }
     return result;
   }
@@ -51,31 +52,30 @@ class _ExercisesPageState extends State<ExercisesPage>{
     return result;
   }
 
-  static Future<List<Exercise>> _selectByType(String Type) async {
-    List<Exercise> result = await SQL_Repository.ExercisesSelectByType(Type);
+  static Future<List<ExerciseCard>> _selectByType(String Type) async {
+    List<ExerciseCard> result = await SQL_Repository.ExercisesSelectByType(Type);
     return result;
   }
 
   List<Exercise>? ex_test;
+  List<ExerciseCard> _exercises_test = [];
 
   @override
   Widget build(BuildContext context) {
 
-
     //if(!CSV_charged)_loadCSV();
-    if(!databaseExercisesDone)_fillExerciseDatabase(_exercises);
+    if(!databaseExercisesDone)_fillExerciseDatabase(_exerciseCSV);
 
-    _selectByOneParameter('Strength', 'type').then((value) {
+//    _exercises = _selectByType('Strength') as List<ExerciseCard>;
+
+    _selectByType('Strength').then((value) {
       setState(() {
         _exercises = value;
+        for(int i = 0; i < 10 && i < _exercises.length; i++) {
+          _exercises_test.add(_exercises[i+1]);
+        }
       });
     });
-
-    List<Exercise> _exercises_test = [];
-    for(int i = 0; i < 10; i++) {
-      _exercises_test.add(_exercises[i+1]);
-    }
-
 
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom]);
     return Scaffold(
@@ -85,7 +85,7 @@ class _ExercisesPageState extends State<ExercisesPage>{
       body: ListView.builder(
         itemCount: _exercises_test.length,
         itemBuilder: (context, index) {
-          return ExerciseCard(
+          return ExerciseCardModel(
             exercise: _exercises_test[index],
           );
         },
@@ -94,10 +94,10 @@ class _ExercisesPageState extends State<ExercisesPage>{
   }
 }
 
-class ExerciseCard extends StatelessWidget {
-  final Exercise exercise;
+class ExerciseCardModel extends StatelessWidget {
+  final ExerciseCard exercise;
 
-  const ExerciseCard({super.key, required this.exercise});
+  const ExerciseCardModel({super.key, required this.exercise});
 
   @override
   Widget build(BuildContext context) {
